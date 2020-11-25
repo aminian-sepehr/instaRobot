@@ -21,8 +21,9 @@ class robot:
     def follow_this_list(self):
         pass
 
-    def unfollow_list(self):
-        pass
+    def unfollow_list(self, flist):
+        self.session.follow_by_list(flist, 1, 600, False)
+
 
     def get_users_info(self):
         pass
@@ -31,4 +32,18 @@ class robot:
         pass
 
     def commnet_on_post(self, comment=emoji.emojize(':red_heart: :red_heart:')):
+        pass
+
+    def run(self):
+
+        with smart_run(self.session):
+            self.session.set_relationship_bounds()
+
+
+
+class test:
+    def h1(self):
+        pass
+
+    def h2(self):
         pass
