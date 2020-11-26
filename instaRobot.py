@@ -24,7 +24,6 @@ class robot:
     def unfollow_list(self, flist):
         self.session.follow_by_list(flist, 1, 600, False)
 
-
     def get_users_info(self):
         pass
 
@@ -35,15 +34,32 @@ class robot:
         pass
 
     def run(self):
-
         with smart_run(self.session):
             self.session.set_relationship_bounds()
 
+    def readfile(self, filename):
+        namelist = []
+        try:
+            with open(filename, 'r') as reader:
+                for i in reader.readlines():
+                    if (i.find('\n') != -1):
+                        i = i[:i.find('\n')]
+                    namelist.append(i)
+            reader.close()
+        except(FileNotFoundError):
+            print('file not found\n')
+            reader.close()
+        return namelist
+
+    def writedata(self, datalist, filename):
+        try:
+            with open(filename, 'w') as writer:
+                for i in datalist:
+                    writer.writelines(i)
+                    writer.writelines('\n')
+            print("data file updated")
+        except(Exception):
+            print("something went wrong\n")
 
 
-class test:
-    def h1(self):
-        pass
 
-    def h2(self):
-        pass
