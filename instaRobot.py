@@ -46,7 +46,7 @@ class robot:
     def __get_users_info(self):
         pass
 
-    def __like_all_photos(self,filepath):
+    def __like_all_photos(self, filepath):
         self.session.set_user_interact()
         self.session.like_by_feed(amount=200,
                                   randomize=True,

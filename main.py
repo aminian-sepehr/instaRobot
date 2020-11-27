@@ -1,5 +1,6 @@
 import instaRobot
 
+
 username = ''
 passwd = ''
 robot = instaRobot.robot(username, passwd)
