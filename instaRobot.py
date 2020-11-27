@@ -1,6 +1,7 @@
 import emoji
 from instapy import InstaPy
 from instapy import smart_run
+import os
 
 
 class robot:
@@ -13,31 +14,49 @@ class robot:
                                password=self.passwd,
                                headless_browser=False)
 
-        self.config()
+        self.__config()
 
-    def config(self):
+    def __config(self):
+        self.session.set_relationship_bounds(enabled=False)
+
+    def __follow_this_list(self, filepath):
+        if(os.path.isfile(filepath)):  # check if exists do this and else : follow a username
+            l1 = self.__readfile(filepath)
+        else:
+            l1 = list(filepath)
+        try:
+            self.session.follow_by_list(l1, 1, 600, False)
+        except(Exception):
+            print('failed to follow\n')
+
+
+    def __unfollow_list(self, flist):
         pass
 
-    def follow_this_list(self):
+    def __get_users_info(self):
         pass
 
-    def unfollow_list(self, flist):
-        self.session.follow_by_list(flist, 1, 600, False)
-
-    def get_users_info(self):
+    def __like_all_photos(self):
         pass
 
-    def like_all_photos(self):
+    def __commnet_on_post(self, comment=emoji.emojize(':red_heart: :red_heart:')):
         pass
 
-    def commnet_on_post(self, comment=emoji.emojize(':red_heart: :red_heart:')):
-        pass
-
-    def run(self):
+    def run(self, flag, filepath=''):
         with smart_run(self.session):
-            self.session.set_relationship_bounds()
+            self.__config()
 
-    def readfile(self, filename):
+            if(flag == 1):
+                self.__follow_this_list(filepath)
+            elif(flag == 2):
+                self.__unfollow_list()
+            elif(flag == 3):
+                self.__like_all_photos()
+            elif(flag == 4):
+                self.__commnet_on_post()
+            else:
+                raise 'flag error : flag number dowsnt match1 \n'
+    def __readfile(self, filename):
         namelist = []
         try:
             with open(filename, 'r') as reader:
@@ -51,7 +70,7 @@ class robot:
             reader.close()
         return namelist
 
-    def writedata(self, datalist, filename):
+    def __writedata(self, datalist, filename):
         try:
             with open(filename, 'w') as writer:
                 for i in datalist:
@@ -60,6 +79,3 @@ class robot:
             print("data file updated")
         except(Exception):
             print("something went wrong\n")
-
-
-
